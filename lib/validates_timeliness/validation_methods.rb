@@ -31,8 +31,10 @@ module ValidatesTimeliness
         validator = ValidatesTimeliness::Validator.new(configuration.symbolize_keys)
         
         # bypass handling of allow_nil and allow_blank to validate raw value
-        configuration.delete(:allow_nil)
-        configuration.delete(:allow_blank)
+        # Simon Hürlimann: don't delete allow_* as we use it to determine requirement
+        # in formtastic using validation_reflection upon this options.
+        #configuration.delete(:allow_nil)
+        #configuration.delete(:allow_blank)
         validates_each(attr_names, configuration) do |record, attr_name, value|
           validator.call(record, attr_name, value)
         end
