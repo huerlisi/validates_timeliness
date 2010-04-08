@@ -424,7 +424,7 @@ describe ValidatesTimeliness::Validator do
 
     it "should validate date attribute as datetime combining value of :with_time against restrictions " do
       configure_validator(:type => :date, :with_time => '12:31', :on_or_before => Time.mktime(2000,1,1,12,30))
-      validate_with(:birth_date, "2000-01-01")
+      validate_with(:birth_date, "2009-01-01")
       should_have_error(:birth_date, :on_or_before)
     end
 
