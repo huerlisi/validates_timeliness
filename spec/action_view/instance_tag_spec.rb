@@ -155,9 +155,9 @@ describe 'ValidatesTimeliness::ActionView::InstanceTag' do
       }
       @person.birth_time = nil
       output = time_select(:person, :birth_time, :include_blank => true, :include_seconds => true)
-      output.should have_tag('input[id=person_birth_time_1i][value=2000]')
-      output.should have_tag('input[id=person_birth_time_2i][value=1]')
-      output.should have_tag('input[id=person_birth_time_3i][value=1]')
+      output.should have_tag("input[id=person_birth_time_1i][value='2000']")
+      output.should have_tag("input[id=person_birth_time_2i][value='1']")
+      output.should have_tag("input[id=person_birth_time_3i][value='1']")
       output.should have_tag('select[id=person_birth_time_4i] option[selected=selected]', '12')
       output.should have_tag('select[id=person_birth_time_5i] option[selected=selected]', '13')
       output.should have_tag('select[id=person_birth_time_6i] option[selected=selected]', '14')
@@ -166,9 +166,9 @@ describe 'ValidatesTimeliness::ActionView::InstanceTag' do
     it "should select attribute values from object if no params" do
       @person.birth_time = "13:14:15"
       output = time_select(:person, :birth_time, :include_blank => true, :include_seconds => true)
-      output.should have_tag('input[id=person_birth_time_1i][value=2000]')
-      output.should have_tag('input[id=person_birth_time_2i][value=1]')
-      output.should have_tag('input[id=person_birth_time_3i][value=1]')
+      output.should have_tag("input[id=person_birth_time_1i][value='2000']")
+      output.should have_tag("input[id=person_birth_time_2i][value='1']")
+      output.should have_tag("input[id=person_birth_time_3i][value='1']")
       output.should have_tag('select[id=person_birth_time_4i] option[selected=selected]', '13')
       output.should have_tag('select[id=person_birth_time_5i] option[selected=selected]', '14')
       output.should have_tag('select[id=person_birth_time_6i] option[selected=selected]', '15')
