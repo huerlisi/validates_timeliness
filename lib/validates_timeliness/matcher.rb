@@ -1,1 +1,1 @@
-require 'validates_timeliness/spec/rails/matchers/validate_timeliness'
+require 'validates_timeliness/rspec/rails/matchers/validate_timeliness'

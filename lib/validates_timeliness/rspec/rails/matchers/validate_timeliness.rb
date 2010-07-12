@@ -1,4 +1,4 @@
-module Spec
+module RSpec
   module Rails
     module Matchers
       class ValidateTimeliness
@@ -100,7 +100,7 @@ module Spec
           match = error_message_for(option)
           @record.send("#{@expected}=", value)
           @record.valid?
-          errors = @record.errors.on(@expected)
+          errors = @record.errors[@expected]
           pass = [ errors ].flatten.any? {|error| /#{match}/ === error }
           @last_failure = "error matching '#{match}' when value is #{format_value(value)}" unless pass
           pass
