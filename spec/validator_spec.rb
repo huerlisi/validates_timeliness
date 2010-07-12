@@ -524,13 +524,13 @@ describe ValidatesTimeliness::Validator do
       it "should be used if defined" do
         configure_validator(:type => :date, :after => Date.today)
         validate_with(:birth_date, 1.day.ago)
-        person.errors.on(:birth_date).should match(/retfa/)
+        person.errors[:birth_date].first.should match(/retfa/)
       end
 
       it "should use I18n translation missing message when not defined" do
         configure_validator(:type => :date, :on_or_after => Date.today)
         validate_with(:birth_date, 1.day.ago)
-        person.errors.on(:birth_date).should match(/translation missing/)
+        person.errors[:birth_date].first.should match(/translation missing/)
       end
 
       after(:all) do
@@ -577,7 +577,7 @@ describe ValidatesTimeliness::Validator do
     it "should be added by default for invalid restriction" do
       ValidatesTimeliness::Validator.ignore_restriction_errors = false
       validate_with(:birth_date, Date.today)
-      person.errors.on(:birth_date).should match(/restriction 'before' value was invalid/)
+      person.errors[:birth_date].first.should match(/restriction 'before' value was invalid/)
     end
 
     it "should not be added when ignore switch is true and restriction is invalid" do
@@ -597,19 +597,19 @@ describe ValidatesTimeliness::Validator do
       it "should format datetime value of restriction" do
         configure_validator(:type => :datetime, :after => 1.day.from_now)
         validate_with(:birth_date_and_time, Time.now)
-        person.errors.on(:birth_date_and_time).should match(/after \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\Z/)
+        person.errors[:birth_date_and_time].first.should match(/after \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\Z/)
       end
 
       it "should format date value of restriction" do
         configure_validator(:type => :date, :after => 1.day.from_now)
         validate_with(:birth_date, Time.now)
-        person.errors.on(:birth_date).should match(/after \d{4}-\d{2}-\d{2}\Z/)
+        person.errors[:birth_date].first.should match(/after \d{4}-\d{2}-\d{2}\Z/)
       end
 
       it "should format time value of restriction" do
         configure_validator(:type => :time, :after => '12:00')
         validate_with(:birth_time, '11:59')
-        person.errors.on(:birth_time).should match(/after \d{2}:\d{2}:\d{2}\Z/)
+        person.errors[:birth_time].first.should match(/after \d{2}:\d{2}:\d{2}\Z/)
       end
 
       if defined?(I18n)
@@ -620,7 +620,7 @@ describe ValidatesTimeliness::Validator do
             I18n.locale = :zz
             configure_validator(:type => :datetime, :after => 1.day.from_now)
             validate_with(:birth_date_and_time, Time.now)
-            person.errors.on(:birth_date_and_time).should match(/after \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\Z/)
+            person.errors[:birth_date_and_time].first.should match(/after \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\Z/)
           end
 
           after do
@@ -651,19 +651,19 @@ describe ValidatesTimeliness::Validator do
       it "should format datetime value of restriction" do
         configure_validator(:type => :datetime, :after => 1.day.from_now)
         validate_with(:birth_date_and_time, Time.now)
-        person.errors.on(:birth_date_and_time).should match(/after \d{2}-\d{2}-\d{4} \d{2}:\d{2} (AM|PM)\Z/)
+        person.errors[:birth_date_and_time].first.should match(/after \d{2}-\d{2}-\d{4} \d{2}:\d{2} (AM|PM)\Z/)
       end
 
       it "should format date value of restriction" do
         configure_validator(:type => :date, :after => 1.day.from_now)
         validate_with(:birth_date, Time.now)
-        person.errors.on(:birth_date).should match(/after \d{2}-\d{2}-\d{4}\Z/)
+        person.errors[:birth_date].first.should match(/after \d{2}-\d{2}-\d{4}\Z/)
       end
 
       it "should format time value of restriction" do
         configure_validator(:type => :time, :after => '12:00')
         validate_with(:birth_time, '11:59')
-        person.errors.on(:birth_time).should match(/after \d{2}:\d{2} (AM|PM)\Z/)
+        person.errors[:birth_time].first.should match(/after \d{2}:\d{2} (AM|PM)\Z/)
       end
 
       after :all do
@@ -692,12 +692,12 @@ describe ValidatesTimeliness::Validator do
 
   def should_have_error(attr_name, error)
     message = error_messages[error]
-    person.errors.on(attr_name).should match(/#{message}/)
+    person.errors[attr_name].first.should match(/#{message}/)
   end
 
   def should_have_no_error(attr_name, error)
     message = error_messages[error]
-    errors = person.errors.on(attr_name)
+    errors = person.errors[attr_name].first
     if errors
       errors.should_not match(/#{message}/)
     else
