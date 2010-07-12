@@ -7,6 +7,8 @@ require 'validates_timeliness/active_record/attribute_methods'
 require 'validates_timeliness/active_record/multiparameter_attributes'
 require 'validates_timeliness/action_view/instance_tag'
 
+require 'validates_timeliness/railtie' if defined?(::Rails::Railtie)
+
 module ValidatesTimeliness
 
   mattr_accessor :default_timezone
