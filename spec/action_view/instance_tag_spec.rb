@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe 'ValidatesTimeliness::ActionView::InstanceTag' do
   include ActionView::Helpers::DateHelper
-  include ActionController::Assertions::SelectorAssertions
+  include ActionDispatch::Assertions::SelectorAssertions
 
   before do
     @person = Person.new
