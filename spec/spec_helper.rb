@@ -32,7 +32,27 @@ require 'action_controller'
 require 'action_view'
 require 'action_mailer'
 
-require 'spec/rails'
+require 'active_support'
+require 'action_pack'
+require 'action_controller'
+
+gem 'rspec', '~> 2.0.0.beta12'
+gem 'rspec-rails', '~> 2.0.0.beta12'
+gem 'rspec_tag_matchers'
+
+require "action_controller/railtie"
+require "active_resource/railtie"
+require 'active_model'
+require 'rspec/core'
+require 'rspec/rails'
+require 'rspec/rails/matchers'
+require 'rspec_tag_matchers'
+    
+RSpec.configure do |config|
+  config.include RspecTagMatchers
+  config.include RSpec::Rails::Matchers
+end
+
 require 'time_travel/time_travel'
 
 ActiveRecord::Base.default_timezone = :utc
