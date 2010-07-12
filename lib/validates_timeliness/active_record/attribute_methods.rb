@@ -43,7 +43,7 @@ module ValidatesTimeliness
       module ClassMethods
 
         def define_attribute_methods_with_timeliness
-          return if generated_methods?
+          return if attribute_methods_generated?
           timeliness_methods = []
 
           columns_hash.each do |name, column|
